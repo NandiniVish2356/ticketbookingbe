@@ -2,7 +2,7 @@ const { request, response } = require('express');
 const db = require('../../db');
 
 const getbookingdetail = (req, res) => {
-    let query = `select * from BookingDetail`
+    let query = `select * from bookingdetail`
     db.query(query, (err, data) => {
         if (err) {
             console.log(err);
@@ -17,7 +17,7 @@ const bookseats = (req, res) => {
 
     let query = `
       SELECT sid 
-      FROM BookingDetail 
+      FROM bookingdetail 
       WHERE isBooked = false 
       ORDER BY sid ASC
     `;
@@ -79,7 +79,7 @@ const bookseats = (req, res) => {
 
         // Step 4: Update seats
         const updateQuery = `
-        UPDATE BookingDetail 
+        UPDATE bookingdetail 
         SET isBooked = 1, bookedBy = ${uid}
         WHERE sid IN (${selectedSeats.join(',')})
       `;
@@ -91,7 +91,7 @@ const bookseats = (req, res) => {
     });
 };
 const resetbookingdetail = (req,res) =>{
-    let query = `UPDATE BookingDetail SET isBooked = false,bookedBy=null`;
+    let query = `UPDATE bookingdetail SET isBooked = false,bookedBy=null`;
     db.query(query, (err, data) => {
         if (err) {
             console.log(err);
